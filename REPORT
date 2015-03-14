@@ -1,0 +1,53 @@
+== METHODOLOGY ==
+
+We applied the maximum likelihood method in order to predict the most probable word (W[n])
+following (W[n-1]). Thus we seek to maximize the following quantity:
+
+Prob(W[n] | W[n-1]) =  Prop(W[n] and W[n-1]) / Prob (W[n]) = count(W[n-1]W[n]) / count(W[n])
+
+Thus for each text we build all of the possible bigrams, counting their frequency.
+Then we feed them to the classifier which updated its counts about \
+a)The frequency of each word (defaultdict: prior)
+b)The frequency of each bigram (defaultdict: joint) 
+
+In order to predict the W[n] given W[n-1], it searches all of the bigrams stored in (joint) and
+computes the forementioned prob. It returns the max. Details in the code.
+
+
+== Best Trained isntance ==
+
+(number of unique words encountered):  991631    (see below why)                                                        
+(number of unique bigrams encountered):  6663702  >>
+ 
+time elapsed: 28.0min 5.67240691185s
+using up to 4GB of RAM (average usage: 2.5 GB)
+
+You can download that trained classifier by:
+$ wget -c http://cineserver.3p.tuc.gr/nextWordPred/trained.pickle
+
+Classify.py for the forementioned instance will consume 1-1.5GB of RAM
+
+We couldn't train on the whole gutenberg dataset because it contains other languages
+besides ENGLISH as well (e.g German found), even though we passed the assumed responsible
+parameters (to download only english ones).
+
+Moreover MESSED up text is included, which we didn't imagine in the beginning and didn't 
+managed to handle in time, e.g:
+...
+It had bene a thing, we confesse, worthie to have bene wished, that
+the Author himselfe had liv'd to have set forth, and overseen his
+owne writings ; But since it hath bin ordain'd otherwise, and he by
+death departed from that right, we pray you do not envie his
+...
+
+Something  that overflowed the lookup table (python's defaultdict) beyond my initial expectations 
+(millions of entries needed)!!
+
+
+== OPTIMIZATIONS ==
+
+1) Use of google's sparsehash or densehash implementations in order to reduce
+computational resources consumption (CPU & RAM)
+
+2) Use of mongodb (mongodict wont work with tuples as keys), in order to store our classifier
+more efficiently
