@@ -3,8 +3,8 @@ Maximum Likelihood is used on the bigrams extracted from the gutenberg books.
 
 == DOWNLOAD DATASET ==
 
-$ sh download_guten.sh
-$ sh unzip.sh
+	$ sh download_guten.sh
+	$ sh unzip.sh
 
 you can execute the unzip.sh at any time (and many times),
 without waiting for download_guten.sh to finish
@@ -15,23 +15,26 @@ Run example:
 
 *** TRAINING: ***
 
-$ python src/train.py -d www.gutenberg.lib.md.us/ -fo trained.pickle -v
+	$ python src/train.py -d www.gutenberg.lib.md.us/ -fo trained.pickle -v
 
 You can also retrain an instance (word frequencing will be summed, thus
 if you run on the same dataset, documents will be double-evalueated):
 
-$ python src/train.py -d www.gutenberg.lib.md.us/ -fi trained_in.pickle -fo trained_out.pickle -v
+	$ python src/train.py -d www.gutenberg.lib.md.us/ -fi trained_in.pickle -fo trained_out.pickle -v
 
 *** CLASSIFY a random word:  ***
 
-$ python src/classify.py -f trained.pickle -w no
+	$ python src/classify.py -f trained.pickle -w no
 
 example output:
-$ python classify.py -w no -f trained_stopped.pickle
-"no" is most probably followed by: "one" with probability:  0.06
+
+	$ python classify.py -w no -f trained_stopped.pickle
+
+	$  "no" is most probably followed by: "one" with probability:  0.06
 
 You can download the trained classifier (mentioned in REPORT) by:
-$ wget -c http://cineserver.3p.tuc.gr/nextWordPred/trained.pickle
+
+	$ wget -c http://cineserver.3p.tuc.gr/nextWordPred/trained.pickle
 
 == NOTICE ==
 
