@@ -34,7 +34,7 @@ example output:
 
 You can download the trained classifier (mentioned in REPORT) by:
 
-	$ wget -c http://cineserver.3p.tuc.gr/nextWordPred/trained.pickle
+	$ wget -c http://cineserver.3p.tuc.gr/public/nextWordPredict/trained.pickle
 
 == NOTICE ==
 
